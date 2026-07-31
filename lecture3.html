@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<!-- saved from url=(0403)file:///C:/Users/%D0%9E%D0%BA%D1%81%D0%B0%D0%BD%D0%B0/Downloads/%D0%9C%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%203%20%C2%B7%20%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%20%C2%B7%20%D0%91%D0%B8%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B0%D0%B4%D0%B0%D0%BF%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D1%84%D0%BE%D1%80%D0%BC%D1%83%D0%BB%D0%B0%20%D0%9D%D0%98%D0%98_4.html -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=860">
+<title>Лекция 3 · Биологическая адаптивность и формула НИИ</title>
+<style>
+  :root{
+    --navy:#13294B;
+    --navy-2:#1C3A66;
+    --gold:#B8893B;
+    --gold-deep:#8A6526;
+    --ink:#222b36;
+    --muted:#5C6B7D;
+    --line:rgba(184,137,59,.45);
+    --soft:rgba(35,48,63,.14);
+    --terra:#C56B45;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#E9E5DC;
+    font-family:Georgia,'Times New Roman',serif;
+    color:var(--ink);
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+  .bar{
+    position:sticky;top:0;z-index:20;
+    background:#fff;
+    border-bottom:1px solid var(--line);
+    padding:12px 24px;
+    display:flex;align-items:center;justify-content:flex-end;
+    gap:12px;
+  }
+  .bar .brand{
+    margin-right:auto;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--navy);
+  }
+  #btnPrint{
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    padding:10px 20px;
+    border-radius:7px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.02em;
+    cursor:pointer;
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:rgba(184,137,59,.35);
+  }
+  #btnPrint:hover{background:var(--navy-2)}
+
+  .deck{max-width:860px;margin:32px auto;padding:0 16px 60px}
+
+  .slide{
+    position:relative;
+    background:#fff;
+    width:100%;
+    min-height:1120px;
+    padding:72px 70px 76px;
+    margin-bottom:28px;
+    border-radius:6px;
+    box-shadow:0 1px 3px rgba(19,41,75,.08), 0 10px 30px rgba(19,41,75,.06);
+  }
+  .slide::after{
+    content:"НИИ: Практик · Модуль 3 · Лекция 3 · 28.07.2026";
+    position:absolute;left:70px;bottom:32px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);
+  }
+  .slide::before{
+    content:"";
+    position:absolute;right:70px;bottom:38px;
+    width:30px;height:2px;background:var(--gold);
+  }
+
+  /* Title slide */
+  .slide.title .masthead{
+    display:flex;align-items:center;gap:14px;
+    padding-bottom:18px;border-bottom:1px solid var(--line);
+    margin-bottom:26px;
+  }
+  .logo-mark{flex:0 0 auto}
+  .masthead-text .org{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-weight:800;font-size:16px;color:var(--navy);
+  }
+  .masthead-text .authors{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:12.5px;color:var(--muted);margin-top:2px;
+  }
+  .kicker{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    text-transform:uppercase;letter-spacing:.14em;
+    font-size:11px;font-weight:700;color:var(--gold-deep);
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:Georgia,serif;
+    font-weight:800;
+    font-size:38px;
+    line-height:1.14;
+    color:var(--navy);
+    margin:0 0 12px;
+  }
+  .subtitle{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-weight:700;font-size:17px;color:var(--gold-deep);
+    margin:0 0 18px;
+  }
+  .lede{
+    font-family:Georgia,serif;
+    font-style:italic;color:var(--muted);
+    font-size:15.5px;line-height:1.65;
+    max-width:640px;
+  }
+  .toc{margin-top:34px;border-top:1px solid var(--line)}
+  .toc .row{
+    display:flex;align-items:center;gap:14px;
+    padding:15px 0;border-bottom:1px solid var(--line);
+  }
+  .toc .row b{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:14.5px;color:var(--ink);font-weight:700;
+  }
+  .toc-label{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    text-transform:uppercase;letter-spacing:.12em;
+    font-size:11px;font-weight:700;color:var(--gold-deep);
+    margin-bottom:2px;
+  }
+
+  /* Chapter header */
+  .part{display:flex;align-items:center;gap:12px;margin:0 0 24px}
+  .dot{
+    flex:0 0 auto;width:30px;height:30px;border-radius:50%;
+    background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:14px;
+    margin-right:12px;
+  }
+  .part .label{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    text-transform:uppercase;letter-spacing:.1em;
+    font-size:13px;font-weight:700;color:var(--gold-deep);
+  }
+
+  h2{font-family:Georgia,serif;font-weight:800;font-size:21px;color:var(--navy);margin:26px 0 10px}
+  h3{font-family:Georgia,serif;font-weight:800;font-size:17px;color:var(--navy);margin:20px 0 8px}
+  p{font-size:15.5px;line-height:1.72;margin:0 0 15px;color:var(--ink)}
+  p.muted{color:var(--muted)}
+  b{color:var(--navy)}
+
+  .quote{
+    position:relative;
+    background:#FBF7EF;
+    border:1.5px solid var(--gold);
+    border-radius:10px;
+    padding:22px 30px 22px 54px;
+    font-family:Georgia,serif;
+    font-weight:700;font-style:normal;
+    color:var(--navy);
+    font-size:16px;line-height:1.6;
+    margin:20px 0;
+  }
+  .quote::before{
+    content:"\201C";
+    position:absolute;left:16px;top:2px;
+    font-size:46px;line-height:1;
+    color:var(--gold);font-family:Georgia,serif;font-weight:700;
+  }
+  .quote .src{
+    display:block;margin-top:10px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-weight:700;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--gold-deep);
+  }
+
+  .reflect{
+    background:var(--navy);color:#fff;
+    border-radius:10px;padding:20px 26px;margin:20px 0;
+  }
+  .rf-h{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    text-transform:uppercase;letter-spacing:.1em;
+    font-size:11.5px;font-weight:700;color:#D9C48F;
+    margin-bottom:10px;
+  }
+  .reflect p{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#fff;margin:0}
+  .reflect b{color:#F0DFB8}
+
+  .brainbox{
+    border:1.5px solid var(--navy);
+    border-radius:10px;padding:20px 26px;margin:20px 0;background:#fff;
+  }
+  .bb-h{font-family:Georgia,serif;font-weight:800;font-size:16.5px;color:var(--navy);margin-bottom:10px}
+  .brainbox p{margin:0 0 10px}
+  .brainbox p:last-child{margin-bottom:0}
+
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+  .mini{border:1.5px solid var(--soft);border-top:3px solid var(--gold);border-radius:10px;padding:16px 18px}
+  .mini.intu{border-top-color:var(--terra)}
+  .tag{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    text-transform:uppercase;letter-spacing:.08em;
+    font-size:11px;font-weight:700;color:var(--gold-deep);margin-bottom:8px;
+  }
+  .mini.intu .tag{color:var(--terra)}
+  .mini ul{margin:0;padding-left:18px;font-size:14px;line-height:1.62;color:var(--ink)}
+  .mini li{margin-bottom:5px}
+
+  .rcards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+  .rcard{border:1.5px solid var(--soft);border-radius:10px;padding:15px 16px;background:#FBF9F5}
+  .rc-name{font-family:Georgia,serif;font-weight:800;font-size:15.5px;color:var(--navy);margin-bottom:3px}
+  .rc-sub{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    text-transform:uppercase;letter-spacing:.06em;font-size:10px;
+    font-weight:700;color:var(--gold-deep);margin-bottom:8px;
+  }
+  .rcard p{font-size:13px;line-height:1.55;margin:0;color:var(--ink)}
+
+  .formula{
+    border:1.5px solid var(--gold);border-radius:10px;background:#FBF7EF;
+    padding:20px 26px;text-align:center;margin:20px 0;
+    font-family:Georgia,serif;font-size:15.5px;line-height:1.6;color:var(--ink);
+  }
+  .formula b{color:var(--navy)}
+
+  .layers{display:flex;flex-direction:column;gap:10px;margin:20px 0}
+  .layer{
+    background:#FBF9F5;border:1px solid var(--soft);border-radius:8px;
+    padding:14px 18px;display:flex;gap:12px;align-items:baseline;
+  }
+  .layer span{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:800;color:var(--gold-deep);
+    flex:0 0 auto;margin-right:4px;
+  }
+  .layer p{margin:0;font-size:14.5px}
+
+  .takeaway{background:var(--navy);color:#fff;border-radius:10px;padding:24px 28px;margin:26px 0 0}
+  .ta-h{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-weight:700;
+    color:#D9C48F;margin-bottom:10px;
+  }
+  .takeaway p{margin:0 0 10px;font-size:15px;line-height:1.68;color:#fff}
+  .takeaway p:last-child{margin-bottom:0}
+  .takeaway b{color:#F0DFB8}
+
+  a{color:var(--gold-deep)}
+
+  @page{ size:A4; margin:0; }
+  @media print{
+    html,body{ background:#fff; margin:0; padding:0 }
+    .bar{ display:none }
+    .deck{ margin:0; padding:0; max-width:none }
+    .slide{
+      box-shadow:none; margin:0; border-radius:0;
+      width:210mm; min-height:297mm;
+      padding:52px 70px 56px;
+      page-break-after:always;
+      break-after:page;
+    }
+    .slide:last-child{ page-break-after:auto; break-after:auto }
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <div class="brand">НИИ: Практик · Лекция 3</div>
+    <button id="btnPrint">Сохранить / Распечатать (PDF)</button>
+  </div>
+
+  <div class="deck">
+
+    <!-- TITLE -->
+    <div class="slide title">
+      <div class="masthead">
+        <img class="logo-mark" width="40" height="46" alt="НИИ Практик" src="data:image/png;base64,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">
+        <div class="masthead-text">
+          <div class="org">НейроИнтуитивный интеллект: Практик</div>
+          <div class="authors">Дмитрий Рустамович Ягудин · Изабелла Найманова</div>
+        </div>
+      </div>
+
+      <div class="kicker">Модуль 3 · Лекция 3 · Биология решений и формула НИИ</div>
+      <h1>Биологическая адаптивность и формула НИИ</h1>
+      <div class="subtitle">Почему тело участвует в принятии решений – и как перестать с ним бороться</div>
+      <p class="lede">На двух прошлых встречах разбирались природа интуиции и формулировка решения так, чтобы оно включало импульс в теле. Знакомая ловушка: решение принято, а действия нет. Сегодня – о том, что происходит в теле между решением и движением к нему: почему тело правильнее называть соавтором, а не исполнителем, почему сила воли здесь не главный инструмент, и что делать вместо неё каждый день, чтобы тело действительно подстроилось под новую цель.</p>
+
+      <div class="toc">
+        <div class="row"><span class="dot">1</span><div><div class="toc-label">Часть 1</div><b>Чувство, эмоция, аффект</b></div></div>
+        <div class="row"><span class="dot">2</span><div><div class="toc-label">Часть 2</div><b>Тело – соавтор решения</b></div></div>
+        <div class="row"><span class="dot">3</span><div><div class="toc-label">Часть 3</div><b>Физическая адаптация: правила без оценки</b></div></div>
+        <div class="row"><span class="dot">4</span><div><div class="toc-label">Часть 4</div><b>Почему сила воли не работает</b></div></div>
+        <div class="row"><span class="dot">5</span><div><div class="toc-label">Часть 5</div><b>Три закона адаптации и работа с телом каждый день</b></div></div>
+        <div class="row"><span class="dot">6</span><div><div class="toc-label">Часть 6</div><b>Что делать дальше</b></div></div>
+      </div>
+    </div>
+
+    <!-- PART 1 / SLIDE A -->
+    <div class="slide">
+      <div class="part"><span class="dot">1</span><span class="label">Чувство, эмоция, аффект</span></div>
+
+      <p>Лекция началась с вопроса из зала: одна из участниц призналась, что после практики запуталась в собственной цели – собирает впечатления, пробует разное, интересуется процессом, но не может понять, где заканчивается цель и начинается просто увлечённость. Прежде чем отвечать на такой вопрос, полезно развести три понятия, которые постоянно путают между собой: чувство, эмоцию и аффект.</p>
+
+      <div class="brainbox">
+        <div class="bb-h">Три уровня одного и того же</div>
+        <p><b>Чувство</b> – длительное, не зависящее от ситуации и времени состояние, сформированное культурным или личным мотивом. У чувства всегда есть адресат: любви «просто так» не бывает, она всегда к чему-то или к кому-то направлена.</p>
+        <p><b>Эмоция</b> – это движение: импульс, постоянно направленный к объекту чувства. В отличие от чувства, эмоцию нельзя поставить на паузу.</p>
+        <p><b>Аффект</b> – состояние, когда эмоция становится слишком сильной и на время перехватывает управление; распознаётся по симпатической или парасимпатической реакции – вспышке злости, накрывающему унынию. Аффект всегда провоцируется чем-то внешним, и его легко «подхватить» от чужого настроения.</p>
+      </div>
+
+      <p>Чем чаще человек проживает состояние аффекта, тем сильнее аффект вытесняет настоящее чувство – так постепенно закрепляется то, что называют невротизмом.</p>
+    </div>
+
+    <!-- PART 1 / SLIDE B -->
+    <div class="slide">
+      <div class="part"><span class="dot">1</span><span class="label">Чувство, эмоция, аффект</span></div>
+
+      <div class="quote">Невротик не способен пережить чувства, потому что находится в состоянии аффекта.</div>
+
+      <p>Отсюда и разница между целью и задачей, из-за которой участница запуталась. <b>Задача</b> – то, для чего есть измеримый конечный результат: два плюс два равно четыре. <b>Цель</b> – конечное впечатление, которое хочется испытать; оно почти никогда не оформлено заранее в чёткую модель. Задачи – это конкретные шаги к цели, через которые чувство к предмету становится больше и объёмнее: чем больше решённых задач, тем масштабнее в итоге может оказаться цель.</p>
+
+      <div class="reflect">
+        <div class="rf-h">Важно различать</div>
+        <p>Чувства держат по отношению к предмету, к делу, к цели в целом – а не к каждой отдельной задаче. Задача не обязана вызывать чувство сама по себе: она вызывает эмоцию действия и небольшое удовольствие от сделанного, а чувство собирается из суммы этих задач – как итоговое впечатление.</p>
+      </div>
+
+      <p class="muted">Именно эта способность различать чувство и аффект понадобится дальше – когда разговор переходит к телу в момент принятия решения.</p>
+    </div>
+
+    <!-- PART 2 / SLIDE A -->
+    <div class="slide">
+      <div class="part"><span class="dot">2</span><span class="label">Тело – соавтор решения</span></div>
+
+      <p>Сегодняшняя тема формулируется так: почему тело участвует в принятии решения, как работает физическая адаптация, почему сила воли не помогает и какие три закона управляют адаптацией организма. Разобравшись в этом, можно перестать бороться со своим телом и начать использовать его как союзника в достижении цели.</p>
+
+      <div class="formula">Физическая адаптивность + Психическая устойчивость + Зеркальное лидерство<br>× индивидуальная скорость нервного узла = <b>Формула НИИ</b></div>
+
+      <p>Скорость нервного узла у каждого своя – условно 50–120 метров в секунду. При одной и той же нагрузке и одном и том же времени она даёт совершенно разную пройденную дистанцию к цели. Психическая устойчивость и зеркальное лидерство – темы следующих встреч; сегодня разбирается первая составляющая – физическая адаптивность.</p>
+
+      <p>Базовая механика простая: голова принимает решение, тело должно его выполнить. Но тело – не механический исполнитель. Оно участвует в решении настолько активно, что правильнее называть его соавтором.</p>
+
+      <div class="quote">Тело – не исполнитель. Тело – соавтор. Это очень важно понимать.</div>
+    </div>
+
+    <!-- PART 2 / SLIDE B -->
+    <div class="slide">
+      <div class="part"><span class="dot">2</span><span class="label">Тело – соавтор решения</span></div>
+
+      <div class="brainbox">
+        <div class="bb-h">Тело считывает раньше сознания</div>
+        <p>Известный эксперимент с карточной игрой, где требуются одновременно интуиция и расчёт, показывает это наглядно. Уже примерно к десятому ходу тело участников, играющих с заведомо «плохой» колодой, начинало подавать вегетативные, телесные сигналы тревоги – задолго до того, как игрок был способен словами объяснить, что колода плохая.</p>
+        <p>Те, кто слушал эти телесные сигналы – то, что обычно называют интуицией, – останавливались и переставали проигрывать. Те, кто игнорировал сигналы тела, продолжали играть и проигрывать дальше.</p>
+        <p>У пациентов с повреждением вентромедиальной префронтальной коры интеллект сохранялся полностью, но качество решений падало – именно потому, что они переставали считывать телесные сигналы.</p>
+      </div>
+
+      <p>Сознание в среднем осознаёт то, что тело уже «поняло» гальванически, с задержкой около 0,3 секунды. Раз тело настолько раньше и точнее сознания, логично спросить: что вообще такое адаптация тела и по каким правилам она работает?</p>
+    </div>
+
+    <!-- PART 3 / SLIDE A -->
+    <div class="slide">
+      <div class="part"><span class="dot">3</span><span class="label">Физическая адаптация: правила без оценки</span></div>
+
+      <div class="formula"><b>Физическая адаптация</b> – способность организма перестраиваться под новые требования среды</div>
+
+      <p>Организм адаптируется постоянно, вопрос только – к чему именно. И у этой адаптации нет оценки «хорошо» или «плохо»: тело одинаково легко привыкает к регулярным тренировкам и к хроническому стрессу, к недосыпанию и к сидячему образу жизни, даже к повторяющимся мыслям. Мозгу в принципе всё равно, что именно повторяется – ему важен сам факт повторения: то, что происходит ежедневно, закрепляется как новая норма.</p>
+
+      <p>Стабильность организма поддерживается не покоем, а постоянной перестройкой – сердце непрерывно бьётся, мозг непрерывно работает; в буквальном смысле «состояния полного покоя» не существует. Каждая такая перестройка расходует ресурс. Если нагрузка на перестройку становится хронической, формируется избыточная адаптационная нагрузка – и это один из самых точных предикторов того, что начинают снижаться когнитивные функции, и ускоряется старение.</p>
+
+      <div class="duo">
+        <div class="mini">
+          <div class="tag">Нагрузка без восстановления</div>
+          <ul>
+            <li>Истощение: расход гормонов и микроэлементов.</li>
+            <li>Дефицит сна, задачи без паузы.</li>
+            <li>Тело теряет ресурс быстрее, чем успевает его восполнить.</li>
+          </ul>
+        </div>
+        <div class="mini intu">
+          <div class="tag">Восстановление без нагрузки</div>
+          <ul>
+            <li>Застой: избыточный отдых без движения к цели.</li>
+            <li>Застой в лимфосистеме, в развитии.</li>
+            <li>Задачи не решаются, ресурс не расходуется на рост.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PART 3 / SLIDE B -->
+    <div class="slide">
+      <div class="part"><span class="dot">3</span><span class="label">Физическая адаптация: правила без оценки</span></div>
+
+      <p>Рост, или суперкомпенсация, происходит только на стыке этих двух состояний: когда нагрузка регулярно сменяется восстановлением. Мышцы растут не во время тренировки, а ночью; новые модели поведения и новая оценка мира формируются в состоянии сна и в состоянии «недеяния» – это не обязательно медитация в позе лотоса, для этого вполне подходит и спокойное хобби, которое приносит удовольствие без напряжения.</p>
+
+      <p class="muted">Простой бытовой пример: если человек просыпается с болью в спине и снова ложится – тело перестраивается под боль и лежание. Если через боль встаёт и начинает двигаться – тело перестраивается под движение. Со временем закрепляется именно тот паттерн, который повторяют чаще, и тело начинает воспроизводить его само, даже когда объективной причины для боли уже нет.</p>
+
+      <div class="reflect">
+        <div class="rf-h">Организм подстраивается под любой сценарий</div>
+        <p>Тело не разбирает, полезен повторяющийся сценарий или вреден, – оно просто закрепляет то, что происходит регулярно. Именно поэтому «просто взять себя в руки» само по себе не работает: разовое усилие не может перекрыть то, что тело тренирует каждый день.</p>
+      </div>
+
+      <p>Раз тело подстраивается под любой повторяющийся сценарий без разбора, логично спросить: почему тогда не получается просто взять и заставить себя силой воли?</p>
+    </div>
+
+        <!-- PART 4 / SLIDE A -->
+    <div class="slide">
+      <div class="part"><span class="dot">4</span><span class="label">Почему сила воли не работает</span></div>
+
+      <p>За откатами – когда что-то новое начали, а через несколько дней бросили, обесценили или нашли себе оправдание – стоит не слабость характера, а гомеостаз: стремление организма вернуть привычное состояние. Психологи в своё время назвали это слабой силой воли.</p>
+
+      <div class="quote">Слабая сила воли – это способ манипуляции человеком. Тебе просто говорят: у тебя слабая сила воли, поэтому ты ничего не делаешь.</div>
+
+      <div class="brainbox">
+        <div class="bb-h">Лань и человек: одна физиология, разный итог</div>
+        <p>За ланью бежит леопард – в теле выделяется большое количество гормонов стресса. Лани удаётся убежать. В безопасности она буквально трясётся всем телом – и этой дрожью утилизирует избыток гормонов, а затем спокойно возвращается щипать траву, будто ничего не случилось.</p>
+        <p>У человека есть то, чего нет у лани, – неокортекс, способный планировать вперёд и додумывать «а вдруг леопард вернётся». Это большое преимущество высших функций – и одновременно причина, по которой стресс у человека редко разряжается так же чисто: вместо разрядки он остаётся в теле хронически заряженным под нерешённые задачи, истощая органы и мышцы. Именно это ощущается изнутри как то самое «слабоволие».</p>
+      </div>
+
+      <div class="brainbox">
+        <div class="bb-h">Что хронический стресс делает с мозгом</div>
+        <p>Снижается нейрогенез в гиппокампе – страдает память. Растёт реактивность миндалины – иногда до тридцати процентов, что усиливает тревогу. Снижается контроль префронтальной коры – слабеют высшие функции.</p>
+      </div>
+    </div>
+
+    <!-- PART 4 / SLIDE B -->
+    <div class="slide">
+      <div class="part"><span class="dot">4</span><span class="label">Почему сила воли не работает</span></div>
+
+      <div class="reflect">
+        <div class="rf-h">Маркер, который стоит запомнить</div>
+        <p>Когда цели и ценности незаметно подменяются одной задачей – снизить тревогу, – решения начинают приниматься не из своих целей, а из желания почувствовать себя спокойнее прямо сейчас. Это совершенно обычный, объяснимый процесс, но его полезно вовремя в себе замечать.</p>
+      </div>
+
+      <p>Высокая вариабельность сердечного ритма связана с гибкостью, спокойствием, лучшим самоконтролем, стрессоустойчивостью и эффективной работой префронтальной коры. Низкая вариабельность, наоборот, снижает адаптационный резерв – и незаметно сужает мышление до мелких, немасштабных целей: организм как будто заранее «не берёт» на себя что-то большое.</p>
+
+      <p class="muted">В одном из внутренних наблюдений с группой около тридцати человек участникам давали обычные бытовые задачи в формате игры, параллельно фиксируя показатели сердца. У кого вариабельность была выше, те быстрее принимали решения и брали инициативу на себя; у кого ниже – ждали, пока им скажут, что делать.</p>
+
+      <p>Изменение вариабельности – процесс не мгновенный. Мозг принимает решение за секунды, интерес и вдохновение появляются сразу же, а вот тело перестраивается неделями и месяцами.</p>
+
+      <p>Из истории Дмитрия Рустамовича: одна из студенток на протяжении примерно полутора лет занималась с ним лично. Поначалу она много и охотно смеялась, легко поддерживала разговор – но это было состояние аффекта, а не подлинное чувство: внутри у неё в то же время оставалась заметная грусть. Спустя примерно год и семь месяцев работы что-то сдвинулось: она стала не смеяться, а широко улыбаться – именно в ответ на то, что её по-настоящему радовало. Ещё через два-три месяца в её жизни появились по-настоящему масштабные цели, и, что важнее, она начала видеть конкретные пути их реализации.</p>
+
+      <p>Между тем, как мозг принял решение, и тем, как тело реально под него перестроилось, обычно проходят недели – в среднем около трёх. Именно на третьей неделе чаще всего и приходит предательское сомнение: «наверное, это не моё». На деле тело просто ещё не успело адаптироваться под новое решение, а сердце по ошибке интерпретирует это как «не получится».</p>
+
+      <div class="quote">Анатомия определяет вашу функцию – а не желание, не мысли и не тот большой бэкграунд знаний, который просто запомнили.</div>
+    </div>
+
+    <!-- PART 5 / SLIDE A -->
+    <div class="slide">
+      <div class="part"><span class="dot">5</span><span class="label">Три закона адаптации и работа с телом каждый день</span></div>
+
+      <div class="layers">
+        <div class="layer"><span>1</span><p><b>Резкий рывок отменяется гомеостазом.</b> Начали в понедельник на полную мощность – и через несколько дней организм включает сопротивление этому темпу. Резко нельзя начинать почти ничего.</p></div>
+        <div class="layer"><span>2</span><p><b>Рост приходит только через циклы нагрузка – восстановление.</b> Иначе не бывает, как бы красиво это ни показывали в фильмах.</p></div>
+        <div class="layer"><span>3</span><p><b>Организм верит повторению, а не намерению.</b> Закрепляются не слова и не мысли о будущем, а то, что реально повторяется каждый день.</p></div>
+      </div>
+
+      <p>Из истории Дмитрия Рустамовича: в юности рядом с боксёрским залом, где он тренировался, находился зал тяжёлой атлетики. Каждый год туда набирали около сотни новичков – все с горящими глазами и большими планами. Первый год все занимались одним и тем же: учили технику толчка и рывка с одним лишь пустым грифом, без веса. К концу года из ста оставалось около семидесяти – часть уходила, потому что хотелось результата быстрее. У тех, кто оставался, вес потом прибавлялся по полкилограмма – на протяжении десяти лет. Именно так и вырастали чемпионы: не рывком, а годами маленьких, растянутых во времени прибавок.</p>
+
+      <div class="brainbox">
+        <div class="bb-h">Любая цель требует нового тела</div>
+        <p>Каждая серьёзная цель – это запрос на новую адаптацию организма, а не только на новое решение. Новому делу или бизнесу нужен другой уровень энергии. Новым отношениям – другая способность расслабляться. Новому масштабу – другая стрессоустойчивость. Поэтому недостаточно просто поставить цель – нужно ещё и подготовить тело, способное её реализовать.</p>
+      </div>
+
+      <p>Из истории Дмитрия Рустамовича: его коллега работает по ночам и в этом ритме успевает сделать огромное количество дел. Но если привезти его в офис с самого утра, до обеда от него почти нет толку – он просто отвлекает остальных от работы. Универсального «правильного» режима сна не существует: то, что подходит одному, изматывает другого, и совпадающий с личным ритмом график намного важнее любых общих рекомендаций.</p>
+    </div>
+
+    <!-- PART 5 / SLIDE B -->
+    <div class="slide">
+      <div class="part"><span class="dot">5</span><span class="label">Три закона адаптации и работа с телом каждый день</span></div>
+
+      <div class="quote">Цель – это заявка на новое тело.</div>
+
+      <p>Даже при принятом решении тело иногда всё равно «стопорит» действие – и почти всегда это одна из двух причин.</p>
+
+      <div class="duo">
+        <div class="mini">
+          <div class="tag">Нет навыка</div>
+          <ul>
+            <li>Мозг легко обманывает сам себя: «я это видел, значит, так могу» – срабатывают зеркальные нейроны.</li>
+            <li>Реального наработанного паттерна в теле ещё нет, и тело реагирует ступором.</li>
+            <li>Это часто ошибочно называют «блоком страха», хотя на деле – просто отсутствие навыка.</li>
+          </ul>
+        </div>
+        <div class="mini intu">
+          <div class="tag">Тело истощено</div>
+          <ul>
+            <li>Ресурсов физически не хватает, даже если решение принято и очень хочется его выполнить.</li>
+            <li>Мозг делает ложный вывод – «наверное, не моё».</li>
+            <li>Честнее было бы сказать: «телу сейчас нечем это выполнить».</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="muted">В такие моменты часто звучит внутренний голос: «наверное, это не моё», «мне нужно снять блок», «все знаки показывают, что мне это не надо». То, что называют «знаками», чаще оказывается интерпретацией нехватки навыка или ресурса в теле, а не мистическим сообщением извне.</p>
+
+      <p>На вопрос из зала, всегда ли путешествие – это отдых, ответ был: не всегда. Путешествие чаще меняет «карту мира» и переключает эмоциональную нагрузку, чем буквально восстанавливает силы; иногда телу нужен именно покой, а не новые впечатления – и эту разницу полезно учитывать, планируя восстановление.</p>
+
+      <p>Если в течение долгого времени человек живёт истощённым – в постоянной работе без восстановления, – у него отключаются высшие функции и остаются только базовые, рефлекторные реакции. У того же, кто регулярно восстанавливается, неокортекс остаётся включённым и активным. Именно это, а не что-либо другое, чаще всего определяет, кто реально ведёт, а кто – истощённо следует.</p>
+    </div>
+
+<!-- PART 6 / SLIDE A -->
+    <div class="slide">
+      <div class="part"><span class="dot">6</span><span class="label">Что делать дальше</span></div>
+
+      <p>Раз тело меняется только через повторение, а не через намерение, у практики есть несколько простых и конкретных опор.</p>
+
+      <div class="layers">
+        <div class="layer"><span>1</span><p><b>Отчёт о теле за прошлый год.</b> Письменно зафиксировать не то, чего хотелось, а то, что тело на самом деле тренировало ежедневно: тревогу и недосып – или, наоборот, движение и восстановление.</p></div>
+        <div class="layer"><span>2</span><p><b>Цель как заявка на тело.</b> Записать свою главную цель, а следом – какое тело нужно, чтобы она стала реальностью: сколько энергии, какой режим восстановления, какая физическая форма.</p></div>
+        <div class="layer"><span>3</span><p><b>Минимальная доза без жадности.</b> Жадность – это столкновение с гомеостазом. Небольшой пример: сделать десять приседаний после чистки зубов, лечь спать на двадцать минут раньше обычного.</p></div>
+        <div class="layer"><span>4</span><p><b>Вечерний вопрос.</b> Пять минут перед сном на один и тот же вопрос: «Что сегодня тренировало моё тело?» – не про мысли и эмоции, а про конкретные действия и выбор дня.</p></div>
+        <div class="layer"><span>5</span><p><b>Дыхание «4–8» при напряжении.</b> Вдох на четыре счёта, выдох на восемь, три цикла – снимает симпатический компонент и переводит тело в состояние покоя.</p></div>
+      </div>
+
+      <div class="takeaway">
+        <div class="ta-h">Итог лекции</div>
+        <p>Тело – не помеха на пути к цели и не что-то, что нужно преодолевать силой воли. Это соавтор, у которого есть свои законы адаптации, и с этими законами можно работать осознанно.</p>
+        <p><b>Если решение принято, а действия нет – дело не в характере: это либо отсутствие навыка, либо истощённый ресурс. И то и другое лечится постепенностью, а не самокритикой.</b></p>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+(function(){
+  var btn = document.getElementById('btnPrint');
+  if (btn) btn.addEventListener('click', function(){ window.print(); });
+
+  function onTap(el, handler){
+    if (!el) return;
+    var startX = 0, startY = 0, moved = false;
+    el.addEventListener('touchstart', function(e){
+      moved = false;
+      var t = e.changedTouches[0];
+      startX = t.clientX; startY = t.clientY;
+    }, {passive:true});
+    el.addEventListener('touchmove', function(e){
+      var t = e.changedTouches[0];
+      if (Math.abs(t.clientX-startX) > 10 || Math.abs(t.clientY-startY) > 10) moved = true;
+    }, {passive:true});
+    el.addEventListener('touchend', function(e){
+      if (!moved){
+        e.preventDefault();
+        handler(e);
+      }
+    });
+  }
+  function tapOnce(selector, handler){
+    document.querySelectorAll(selector).forEach(function(el){ onTap(el, handler); });
+  }
+  tapOnce('#btnPrint', function(){ window.print(); });
+})();
+</script>
+
+
+</body></html>
