@@ -683,6 +683,22 @@ footer.sign b{color:var(--text-soft); font-family:var(--display)}
       <label class="f"><span>и «после»</span><input type="text" id="p2_afterp"></label>
     </div>
 
+    <div class="card warn">
+      <h3>Скорая помощь: сенсорный захват и дыхание</h3>
+      <p class="hint">Эти две практики не для утра, а для момента, когда вас выбило: разговор, новость, чужое раздражение.</p>
+      <h4>Сенсорный захват – одна минута, глаза открыты, где угодно</h4>
+      <label class="check"><input type="checkbox" id="p2_sz1"><span class="box"></span><span class="txt">Нашёл(шла) три предмета или три цвета вокруг себя</span></label>
+      <label class="check"><input type="checkbox" id="p2_sz2"><span class="box"></span><span class="txt">Нашёл(шла) три звука: близкий, далёкий, тихий</span></label>
+      <label class="check"><input type="checkbox" id="p2_sz3"><span class="box"></span><span class="txt">Отметил(а) три ощущения в теле</span></label>
+      <h4>Дыхание 4–8 – одна минута</h4>
+      <label class="check"><input type="checkbox" id="p2_br1"><span class="box"></span><span class="txt">Вдох на четыре счёта, выдох на восемь – выдох вдвое длиннее вдоха</span></label>
+      <label class="check"><input type="checkbox" id="p2_br2"><span class="box"></span><span class="txt">Если восемь пока много: вдох на три, выдох на шесть. Важна пропорция, а не цифры</span></label>
+      <label class="f"><span>Что меня чаще всего выбивает</span><input type="text" id="p2_out"></label>
+      <label class="f"><span>Что из двух практик мне подошло больше</span><input type="text" id="p2_fit"></label>
+      <p class="track-label" style="margin-top:20px">Отмечайте, когда воспользовались</p>
+      <div class="track" data-track="p2_sos" data-days="7"></div>
+    </div>
+
     <div class="promo">
       <b>На курсе «НИИ Практик»</b>
       <p>Решение – это всегда задача внутри цели. Под саму цель есть отдельный шаблон, мы называем его картой цели, и две недели работы: лекция и практика.</p>
@@ -750,7 +766,7 @@ footer.sign b{color:var(--text-soft); font-family:var(--display)}
 
     <div class="card">
       <h3>Полный комплекс</h3>
-      <p class="hint">Минуту слушать · минуту чувствовать · минуту смотреть · минуту стаканчик с утвердительной речью.</p>
+      <p class="hint">Минуту слушать · минуту чувствовать · минуту смотреть · минуту сенсорный захват · минуту дыхание 4–8 · минуту стаканчик с утвердительной речью.</p>
       <label class="check"><input type="checkbox" id="p3_full"><span class="box"></span><span class="txt">Собрал(а) комплекс целиком – все четыре минуты подряд</span></label>
     </div>
 
@@ -829,11 +845,13 @@ footer.sign b{color:var(--text-soft); font-family:var(--display)}
 
     <div class="card accent">
       <h3>Гигиена принятия решений</h3>
-      <p class="hint">Ежедневный комплекс, четыре минуты.</p>
+      <p class="hint">Ежедневный комплекс, шесть минут.</p>
       <ol class="steps">
         <li>Минуту слушать – три дальних звука, три ближних, не интерпретируя</li>
         <li>Минуту чувствовать – пройти вниманием по телу снизу вверх</li>
         <li>Минуту смотреть в одну точку – только смотреть, без мыслей</li>
+        <li>Минуту сенсорный захват – три предмета, три звука, три ощущения в теле</li>
+        <li>Минуту дыхание – вдох на четыре счёта, выдох на восемь</li>
         <li>Минуту стаканчик – тонус тела и утвердительная речь о своей задаче</li>
       </ol>
 
@@ -883,7 +901,7 @@ footer.sign b{color:var(--text-soft); font-family:var(--display)}
       <label class="check"><input type="checkbox" id="p5_c4" data-group="p5c"><span class="box"></span><span class="txt">Я переписал(а) свою речь о задаче на утвердительную</span></label>
       <label class="check"><input type="checkbox" id="p5_c5" data-group="p5c"><span class="box"></span><span class="txt">Я сделал(а) реальный шаг, а не подготовку к нему</span></label>
       <label class="check"><input type="checkbox" id="p5_c6" data-group="p5c"><span class="box"></span><span class="txt">Я знаю, какой фактор формулы у меня западает</span></label>
-      <label class="check"><input type="checkbox" id="p5_c7" data-group="p5c"><span class="box"></span><span class="txt">У меня есть ежедневный комплекс на 4 минуты</span></label>
+      <label class="check"><input type="checkbox" id="p5_c7" data-group="p5c"><span class="box"></span><span class="txt">У меня есть ежедневный комплекс на 6 минут</span></label>
       <div class="chips"><span class="chip">Отмечено<b id="c_p5c">0 из 7</b></span></div>
     </div>
 
