@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дневник принятия решений – Международный нейроуниверситет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#05080F; --bg-panel:#0A1019; --bg-line:#16202E; --bg-soft:#0E1622;
+  --gold:#E6A53A; --gold-bright:#F4C04E; --gold-deep:#C8861F; --gold-soft:#8C6A2E;
+  --blue:#2E7BD6; --blue-bright:#4FA3FF; --blue-deep:#16335B;
+  --text:#F2F4F8; --text-soft:#C3CCD8; --text-mute:#7E8A99;
+  --radius:16px; --radius-sm:10px; --maxw:920px;
+  --display:'Montserrat','Arial Black',system-ui,sans-serif;
+  --body:'Inter','Segoe UI',Roboto,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg-deep); color:var(--text);
+  font-family:var(--body); font-size:16px; line-height:1.62;
+  -webkit-text-size-adjust:100%;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(760px 420px at 12% -8%, rgba(46,123,214,.16), transparent 70%),
+    radial-gradient(680px 380px at 92% 4%, rgba(230,165,58,.11), transparent 70%);
+}
+.wrap{position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; padding:0 20px 120px}
+
+/* ---------- header ---------- */
+.top{padding:44px 0 22px}
+.brand{
+  display:flex; align-items:center; gap:10px; margin-bottom:26px;
+  font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--text-mute); font-weight:600;
+}
+.brand i{width:22px; height:1px; background:var(--gold-soft); display:block}
+h1{
+  font-family:var(--display); font-weight:800; letter-spacing:-.02em;
+  font-size:clamp(30px,6vw,50px); line-height:1.06; margin:0 0 16px;
+}
+h1 em{font-style:normal; color:var(--gold-bright); display:block}
+.lede{color:var(--text-soft); font-size:17px; max-width:62ch; margin:0 0 30px}
+
+/* ---------- progress ---------- */
+.prog{
+  background:var(--bg-panel); border:1px solid var(--bg-line);
+  border-radius:var(--radius); padding:16px 18px; margin-bottom:8px;
+}
+.prog-head{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:11px}
+.prog-head b{font-family:var(--display); font-size:13px; letter-spacing:.05em; text-transform:uppercase; color:var(--text-soft)}
+.prog-head span{font-family:var(--display); font-size:20px; color:var(--gold-bright)}
+.bar{height:7px; border-radius:99px; background:var(--bg-line); overflow:hidden}
+.bar i{display:block; height:100%; width:0; border-radius:99px; background:linear-gradient(90deg,var(--blue),var(--gold)); transition:width .45s cubic-bezier(.2,.8,.3,1)}
+.autosave{font-size:12.5px; color:var(--text-mute); margin:10px 0 0; display:flex; align-items:center; gap:7px}
+.dot{width:6px; height:6px; border-radius:50%; background:#3FBF6A; box-shadow:0 0 0 3px rgba(63,191,106,.16)}
+
+/* ---------- nav ---------- */
+nav{
+  position:sticky; top:0; z-index:20; margin:26px -20px 0; padding:12px 20px;
+  background:rgba(5,8,15,.86); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--bg-line);
+}
+.tabs{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto; border:1px solid var(--bg-line); background:var(--bg-panel);
+  color:var(--text-soft); font-family:var(--display); font-weight:600; font-size:13px;
+  padding:9px 15px; border-radius:99px; cursor:pointer; white-space:nowrap;
+  transition:all .18s ease; display:flex; align-items:center; gap:7px;
+}
+.tab:hover{border-color:var(--gold-soft); color:var(--text)}
+.tab[aria-selected="true"]{background:var(--gold); border-color:var(--gold); color:#140E02}
+.tab u{
+  text-decoration:none; font-size:10px; width:16px; height:16px; border-radius:50%;
+  display:grid; place-items:center; background:rgba(255,255,255,.1);
+}
+.tab[aria-selected="true"] u{background:rgba(0,0,0,.18)}
+.tab.done u{background:#3FBF6A; color:#052B12}
+
+/* ---------- pages ---------- */
+.page{display:none; animation:in .34s ease}
+.page.on{display:block}
+@keyframes in{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+.page-head{padding:38px 0 6px}
+.kicker{
+  font-family:var(--display); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:10px;
+}
+h2{font-family:var(--display); font-weight:700; font-size:clamp(24px,4.4vw,34px); line-height:1.16; margin:0 0 12px; letter-spacing:-.01em}
+.page-note{color:var(--text-mute); font-size:15px; max-width:60ch; margin:0}
+
+.card{
+  background:var(--bg-panel); border:1px solid var(--bg-line);
+  border-radius:var(--radius); padding:24px; margin:20px 0;
+}
+.card.accent{border-color:var(--gold-soft); background:linear-gradient(160deg,rgba(230,165,58,.06),var(--bg-panel) 55%)}
+.card.blue{border-color:var(--blue-deep); background:linear-gradient(160deg,rgba(46,123,214,.08),var(--bg-panel) 55%)}
+h3{font-family:var(--display); font-weight:700; font-size:18px; margin:0 0 6px; letter-spacing:-.005em}
+h4{font-family:var(--display); font-weight:600; font-size:14px; letter-spacing:.04em; text-transform:uppercase; color:var(--gold); margin:22px 0 10px}
+.hint{color:var(--text-mute); font-size:14.5px; margin:0 0 16px}
+p{margin:0 0 14px}
+p:last-child{margin-bottom:0}
+.tag{
+  display:inline-block; font-family:var(--display); font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--blue-bright); border:1px solid var(--blue-deep);
+  border-radius:99px; padding:3px 10px; margin-bottom:12px;
+}
+
+/* ---------- checkbox ---------- */
+.check{
+  display:flex; gap:13px; align-items:flex-start; padding:11px 13px; margin:6px 0;
+  border:1px solid var(--bg-line); border-radius:var(--radius-sm);
+  background:var(--bg-soft); cursor:pointer; transition:all .16s ease;
+}
+.check:hover{border-color:var(--gold-soft)}
+.check input{position:absolute; opacity:0; width:0; height:0}
+.box{
+  flex:0 0 auto; width:21px; height:21px; margin-top:1px; border-radius:6px;
+  border:1.6px solid var(--text-mute); display:grid; place-items:center;
+  transition:all .16s ease;
+}
+.box::after{
+  content:''; width:10px; height:6px; border-left:2px solid #140E02; border-bottom:2px solid #140E02;
+  transform:rotate(-45deg) scale(.3); opacity:0; transition:all .16s ease; margin-top:-2px;
+}
+.check input:checked ~ .box{background:var(--gold); border-color:var(--gold)}
+.check input:checked ~ .box::after{opacity:1; transform:rotate(-45deg) scale(1)}
+.check input:checked ~ .txt{color:var(--text)}
+.check:has(input:checked){border-color:var(--gold-soft); background:rgba(230,165,58,.07)}
+.check input:focus-visible ~ .box{outline:2px solid var(--blue-bright); outline-offset:2px}
+.txt{color:var(--text-soft); font-size:15.5px; line-height:1.5}
+.txt b{color:var(--text); font-weight:600}
+
+/* ---------- fields ---------- */
+label.f{display:block; margin:18px 0 0}
+label.f > span{display:block; font-size:14.5px; color:var(--text-soft); margin-bottom:7px}
+input[type=text], textarea{
+  width:100%; background:var(--bg-soft); color:var(--text);
+  border:1px solid var(--bg-line); border-bottom:1.6px solid var(--gold-soft);
+  border-radius:var(--radius-sm); padding:12px 14px;
+  font-family:var(--body); font-size:16px; line-height:1.5; resize:vertical;
+  transition:border-color .16s ease, background .16s ease;
+}
+input[type=text]:focus, textarea:focus{
+  outline:none; border-color:var(--blue); border-bottom-color:var(--gold-bright);
+  background:#0C1420;
+}
+input::placeholder, textarea::placeholder{color:#5A6472}
+textarea{min-height:76px}
+
+/* ---------- scores ---------- */
+.score{margin:16px 0; padding:16px; border:1px solid var(--bg-line); border-radius:var(--radius-sm); background:var(--bg-soft)}
+.score-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:4px}
+.score-top b{font-family:var(--display); font-size:15px}
+.score-top i{font-style:normal; font-family:var(--display); font-size:26px; color:var(--gold-bright); min-width:34px; text-align:right}
+.score p{font-size:14px; color:var(--text-mute); margin:0 0 12px}
+.dots{display:flex; gap:5px}
+.dots button{
+  flex:1; height:34px; border-radius:8px; cursor:pointer;
+  border:1px solid var(--bg-line); background:#0B1220; color:var(--text-mute);
+  font-family:var(--display); font-size:13px; transition:all .14s ease;
+}
+.dots button:hover{border-color:var(--gold-soft); color:var(--text)}
+.dots button.on{background:var(--gold); border-color:var(--gold); color:#140E02}
+
+/* ---------- verdict ---------- */
+.verdict{
+  margin-top:16px; padding:15px 17px; border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,rgba(46,123,214,.14),rgba(230,165,58,.09));
+  border:1px solid var(--blue-deep);
+}
+.verdict b{display:block; font-family:var(--display); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--blue-bright); margin-bottom:5px}
+.verdict span{font-family:var(--display); font-size:19px; color:var(--text)}
+.verdict em{display:block; font-style:normal; font-size:14.5px; color:var(--text-soft); margin-top:6px}
+
+/* ---------- counter chips ---------- */
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-top:14px}
+.chip{
+  border:1px solid var(--bg-line); background:var(--bg-soft); border-radius:99px;
+  padding:7px 14px; font-size:14px; color:var(--text-soft);
+}
+.chip b{font-family:var(--display); color:var(--gold-bright); margin-left:5px}
+
+/* ---------- table ---------- */
+.tbl{width:100%; border-collapse:collapse; margin:14px 0}
+.tbl th{
+  text-align:left; font-family:var(--display); font-size:11.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--text-mute); font-weight:600;
+  padding:0 10px 9px; border-bottom:1px solid var(--bg-line);
+}
+.tbl td{padding:9px 10px 9px 0; vertical-align:top}
+.tbl td:first-child{padding-left:0}
+.tbl .num{color:var(--gold-soft); font-family:var(--display); width:26px; padding-right:0}
+.lvl{display:flex; gap:6px}
+.lvl label{flex:1}
+.mini{
+  display:block; text-align:center; cursor:pointer; border:1px solid var(--bg-line);
+  background:#0B1220; border-radius:8px; padding:8px 4px; font-size:12.5px;
+  color:var(--text-mute); transition:all .14s ease; font-family:var(--display);
+}
+.mini:hover{border-color:var(--gold-soft); color:var(--text)}
+.lvl input{position:absolute; opacity:0; width:0; height:0}
+.lvl input:checked + .mini{background:var(--blue); border-color:var(--blue-bright); color:#fff}
+
+/* ---------- tracker ---------- */
+.track{display:flex; flex-wrap:wrap; gap:7px; margin:12px 0 0}
+.track button{
+  width:38px; height:38px; border-radius:10px; cursor:pointer;
+  border:1px solid var(--bg-line); background:#0B1220; color:var(--text-mute);
+  font-family:var(--display); font-size:12.5px; transition:all .14s ease;
+}
+.track button:hover{border-color:var(--gold-soft)}
+.track button.on{background:linear-gradient(135deg,var(--gold),var(--gold-deep)); border-color:var(--gold); color:#140E02}
+.track-label{font-size:13.5px; color:var(--text-mute); margin:0 0 2px}
+
+/* ---------- mirror ---------- */
+.mirror{
+  border-left:3px solid var(--gold); background:var(--bg-soft);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:14px 16px; margin:6px 0 0;
+}
+.mirror b{display:block; font-family:var(--display); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:6px}
+.mirror q{font-size:16.5px; color:var(--text); quotes:'«' '»'}
+.mirror .empty{color:var(--text-mute); font-size:14.5px}
+
+/* ---------- steps ---------- */
+ol.steps{counter-reset:s; list-style:none; padding:0; margin:14px 0 0}
+ol.steps li{
+  counter-increment:s; position:relative; padding:12px 0 12px 46px;
+  border-bottom:1px solid var(--bg-line); font-size:15.5px; color:var(--text-soft);
+}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{
+  content:counter(s); position:absolute; left:0; top:11px;
+  width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
+  background:var(--blue-deep); color:var(--blue-bright);
+  font-family:var(--display); font-size:14px;
+}
+
+/* ---------- course promo ---------- */
+.promo{
+  margin:26px 0; padding:24px; border-radius:var(--radius);
+  border:1px solid var(--gold-soft);
+  background:linear-gradient(150deg,rgba(230,165,58,.12),rgba(46,123,214,.07) 60%,var(--bg-panel));
+}
+.promo b{display:block; font-family:var(--display); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:9px}
+.promo p{color:var(--text-soft); font-size:15.5px}
+
+/* ---------- footer bar ---------- */
+.bar-fixed{
+  position:fixed; left:0; right:0; bottom:0; z-index:30;
+  background:rgba(5,8,15,.92); backdrop-filter:blur(14px);
+  border-top:1px solid var(--bg-line); padding:12px 20px;
+}
+.bar-in{max-width:var(--maxw); margin:0 auto; display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.btn{
+  border:1px solid var(--bg-line); background:var(--bg-panel); color:var(--text-soft);
+  font-family:var(--display); font-weight:600; font-size:13.5px;
+  padding:11px 17px; border-radius:99px; cursor:pointer; transition:all .16s ease;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn:hover{border-color:var(--gold-soft); color:var(--text)}
+.btn.primary{background:linear-gradient(135deg,var(--gold-bright),var(--gold-deep)); border-color:var(--gold); color:#140E02}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:transparent; color:var(--text-mute)}
+.btn.ghost:hover{color:#E0736A}
+.spacer{flex:1}
+.pager{display:flex; gap:8px}
+
+footer.sign{padding:34px 0 10px; color:var(--text-mute); font-size:13.5px; border-top:1px solid var(--bg-line); margin-top:36px}
+footer.sign b{color:var(--text-soft); font-family:var(--display)}
+
+.toast{
+  position:fixed; left:50%; bottom:86px; transform:translate(-50%,20px);
+  background:var(--gold); color:#140E02; font-family:var(--display); font-weight:600; font-size:14px;
+  padding:11px 20px; border-radius:99px; opacity:0; pointer-events:none;
+  transition:all .3s cubic-bezier(.2,.8,.3,1); z-index:40;
+}
+.toast.on{opacity:1; transform:translate(-50%,0)}
+
+@media (max-width:620px){
+  .wrap{padding:0 15px 130px}
+  .card{padding:18px}
+  .top{padding:30px 0 16px}
+  .track button{width:34px; height:34px}
+  .dots button{height:38px; font-size:12px}
+  .bar-in{gap:7px}
+  .btn{padding:10px 13px; font-size:12.5px}
+}
+
+/* ---------- print ---------- */
+@page{margin:14mm 12mm}
+@media print{
+  :root{--text:#111; --text-soft:#333; --text-mute:#666}
+  body{background:#fff; color:#111; font-size:11pt}
+  body::before, nav, .bar-fixed, .prog, .autosave, .toast, .pager{display:none !important}
+  .wrap{max-width:none; padding:0}
+  .page{display:block !important; animation:none; page-break-after:always}
+  .page:last-of-type{page-break-after:auto}
+  .page-head{padding:0 0 4px}
+  h1{color:#111; font-size:24pt}
+  h1 em{color:#8C6A2E}
+  h2{font-size:16pt; color:#111}
+  .kicker{color:#8C6A2E}
+  .card, .promo, .score, .check, .verdict, .mirror{
+    background:#fff !important; border-color:#CFCFCF !important; break-inside:avoid;
+  }
+  .card{padding:0; margin:12px 0; border:0}
+  h3{color:#111} h4{color:#8C6A2E}
+  .box{border-color:#666; width:14px; height:14px}
+  .check{padding:5px 0; margin:2px 0; border:0}
+  .check input:checked ~ .box{background:#fff; border-color:#111}
+  .check input:checked ~ .box::after{border-color:#111; opacity:1}
+  input[type=text], textarea{
+    background:#fff !important; border:0; border-bottom:1px solid #999 !important;
+    border-radius:0; padding:2px 0; min-height:0; color:#111;
+  }
+  textarea{min-height:34px}
+  .dots button, .track button{border-color:#999; background:#fff; color:#666; width:22px; height:22px}
+  .dots button.on, .track button.on{background:#EEE; color:#111}
+  .mini{background:#fff; border-color:#999; color:#333}
+  .promo{border-color:#CFCFCF}
+  footer.sign{border-top:1px solid #CFCFCF; color:#666}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand"><i></i>Международный нейроуниверситет<i></i></div>
+    <h1>Дневник<em>принятия решений</em></h1>
+    <p class="lede">Рабочая тетрадь интенсива «Нейроинтуитивный интеллект – формула точных решений». Заполняется прямо во время уроков: где-то галочка, где-то одна строка. Всё сохраняется в этом браузере – можно закрыть и вернуться.</p>
+
+    <div class="prog">
+      <div class="prog-head"><b>Заполнено</b><span id="pct">0%</span></div>
+      <div class="bar"><i id="barFill"></i></div>
+    </div>
+    <p class="autosave"><span class="dot"></span><span id="saveNote">Записи сохраняются автоматически</span></p>
+  </header>
+
+  <nav>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-go="0"><u>0</u>Перед стартом</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="1"><u>1</u>Урок 1</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="2"><u>2</u>Урок 2</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="3"><u>3</u>Урок 3</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="4"><u>4</u>Урок 4</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="5"><u>5</u>Итог</button>
+    </div>
+  </nav>
+
+  <!-- ================= СТРАНИЦА 0 ================= -->
+  <section class="page on" data-page="0">
+    <div class="page-head">
+      <div class="kicker">Страница 0</div>
+      <h2>Перед стартом</h2>
+      <p class="page-note">Две минуты до первого урока. Здесь появится то решение, с которым вы пройдёте весь интенсив.</p>
+    </div>
+
+    <div class="card">
+      <h3>Как пользоваться дневником</h3>
+      <ol class="steps">
+        <li>Держите дневник открытым рядом во время каждого урока – в телефоне или на компьютере.</li>
+        <li>Ведущие сами скажут, когда что-то отметить или записать. Останавливайте видео, если не успеваете.</li>
+        <li>Здесь нет правильных ответов. Есть ваши.</li>
+        <li>В конце у вас останется картина: как вы принимаете решения и что с этим делать.</li>
+      </ol>
+    </div>
+
+    <div class="card accent">
+      <h3>Моё отложенное решение</h3>
+      <p class="hint">Решение, которое вы откладываете прямо сейчас. Не обязательно большое. То, к которому вы возвращаетесь, но никак не сделаете шаг.</p>
+      <label class="f"><span>Моё решение</span>
+        <textarea id="p0_decision" placeholder="Например: поговорить с руководителем о повышении. Или дойти наконец до врача."></textarea>
+      </label>
+      <label class="f"><span>Сколько времени я к нему возвращаюсь</span>
+        <input type="text" id="p0_howlong" placeholder="три месяца · полгода · два года">
+      </label>
+      <p class="hint" style="margin:16px 0 0">Все четыре урока мы будем работать именно с ним.</p>
+    </div>
+
+    <div class="card">
+      <h3>Точка А</h3>
+      <p class="hint">Отметьте, как дела с решениями обстоят сейчас. Честно – это только для вас.</p>
+      <label class="check"><input type="checkbox" id="p0_a1" data-group="p0a"><span class="box"></span><span class="txt">Я знаю, что нужно делать, но не делаю</span></label>
+      <label class="check"><input type="checkbox" id="p0_a2" data-group="p0a"><span class="box"></span><span class="txt">Я собираю информацию и всё время жду, что найдётся вариант получше</span></label>
+      <label class="check"><input type="checkbox" id="p0_a3" data-group="p0a"><span class="box"></span><span class="txt">Я принимаю решения быстро, а потом жалею</span></label>
+      <label class="check"><input type="checkbox" id="p0_a4" data-group="p0a"><span class="box"></span><span class="txt">Я откладываю до момента, когда решение примут за меня</span></label>
+      <label class="check"><input type="checkbox" id="p0_a5" data-group="p0a"><span class="box"></span><span class="txt">Я устаю от одной мысли об этом решении</span></label>
+      <label class="check"><input type="checkbox" id="p0_a6" data-group="p0a"><span class="box"></span><span class="txt">Я обсуждаю это со многими и после разговоров сомневаюсь ещё сильнее</span></label>
+      <div class="chips"><span class="chip">Отмечено<b id="c_p0a">0 из 6</b></span></div>
+    </div>
+  </section>
+
+  <!-- ================= СТРАНИЦА 1 ================= -->
+  <section class="page" data-page="1">
+    <div class="page-head">
+      <div class="kicker">Урок 1</div>
+      <h2>Почему вы всё ещё на месте</h2>
+      <p class="page-note">Свой тип реакции на неопределённость, уровень мозга, из которого приходят ваши решения, и первая практика.</p>
+    </div>
+
+    <div class="card">
+      <h3>Мой тип реакции на неопределённость</h3>
+      <p class="hint">Отметьте всё, что про вас. В нескольких столбцах сразу – это нормально, у большинства людей так и есть.</p>
+
+      <h4>Гиперконтроль – «сначала разберусь до конца»</h4>
+      <label class="check"><input type="checkbox" id="p1_g1" data-type="gk"><span class="box"></span><span class="txt">Я собираю информацию дольше, чем потом действую</span></label>
+      <label class="check"><input type="checkbox" id="p1_g2" data-type="gk"><span class="box"></span><span class="txt">Я почти всегда нахожу, что здесь ещё «не всё учтено»</span></label>
+      <label class="check"><input type="checkbox" id="p1_g3" data-type="gk"><span class="box"></span><span class="txt">Я ищу вариант получше даже тогда, когда хороший уже найден</span></label>
+      <label class="check"><input type="checkbox" id="p1_g4" data-type="gk"><span class="box"></span><span class="txt">Мне важно объяснить себе решение заранее, до того как оно сделано</span></label>
+      <label class="check"><input type="checkbox" id="p1_g5" data-type="gk"><span class="box"></span><span class="txt">Со стороны кажется, что я двигаюсь, но результат не меняется</span></label>
+      <label class="check"><input type="checkbox" id="p1_g6" data-type="gk"><span class="box"></span><span class="txt">Я много знаю по своей теме и мало что из этого применил</span></label>
+
+      <h4>Импульсивность – «сделаю сейчас, разберусь потом»</h4>
+      <label class="check"><input type="checkbox" id="p1_i1" data-type="imp"><span class="box"></span><span class="txt">В напряжении я говорю то, о чём потом жалею</span></label>
+      <label class="check"><input type="checkbox" id="p1_i2" data-type="imp"><span class="box"></span><span class="txt">Я принимаю решения на эмоции и через день их отменяю</span></label>
+      <label class="check"><input type="checkbox" id="p1_i3" data-type="imp"><span class="box"></span><span class="txt">Мне сложно остановиться и выдержать паузу</span></label>
+      <label class="check"><input type="checkbox" id="p1_i4" data-type="imp"><span class="box"></span><span class="txt">Я хватаюсь за новое, не закончив предыдущее</span></label>
+      <label class="check"><input type="checkbox" id="p1_i5" data-type="imp"><span class="box"></span><span class="txt">В конфликте мне важно, чтобы кто-то был виноват</span></label>
+      <label class="check"><input type="checkbox" id="p1_i6" data-type="imp"><span class="box"></span><span class="txt">После всплеска я чувствую опустошение</span></label>
+
+      <h4>Ступор – «подожду, пока прояснится»</h4>
+      <label class="check"><input type="checkbox" id="p1_s1" data-type="stup"><span class="box"></span><span class="txt">Когда напряжение растёт, я замираю и ничего не делаю</span></label>
+      <label class="check"><input type="checkbox" id="p1_s2" data-type="stup"><span class="box"></span><span class="txt">Я отвлекаюсь на всё подряд, лишь бы не подходить к задаче</span></label>
+      <label class="check"><input type="checkbox" id="p1_s3" data-type="stup"><span class="box"></span><span class="txt">Я жду, пока ситуация разрешится сама</span></label>
+      <label class="check"><input type="checkbox" id="p1_s4" data-type="stup"><span class="box"></span><span class="txt">Мне тяжело начать, даже когда я точно знаю первый шаг</span></label>
+      <label class="check"><input type="checkbox" id="p1_s5" data-type="stup"><span class="box"></span><span class="txt">Я откладываю разговоры и звонки, которые считаю сложными</span></label>
+      <label class="check"><input type="checkbox" id="p1_s6" data-type="stup"><span class="box"></span><span class="txt">Про важное я думаю «займусь этим, когда будет спокойнее»</span></label>
+
+      <div class="chips">
+        <span class="chip">Гиперконтроль<b id="c_gk">0</b></span>
+        <span class="chip">Импульсивность<b id="c_imp">0</b></span>
+        <span class="chip">Ступор<b id="c_stup">0</b></span>
+      </div>
+      <div class="verdict">
+        <b>Мой ведущий тип</b>
+        <span id="v_type">пока не определён</span>
+        <em id="v_type_note">Отметьте пункты выше – тип посчитается сам.</em>
+      </div>
+    </div>
+
+    <div class="card blue">
+      <h3>Из какого мозга я решал</h3>
+      <p class="hint">Три решения за последнюю неделю – не обязательно судьбоносных. Что ответить коллеге. Брать или не брать подработку. Идти или не идти на разговор.</p>
+      <table class="tbl">
+        <thead><tr><th></th><th>решение</th><th style="width:44%">уровень</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td><input type="text" id="p1_d1" placeholder="какое решение"></td>
+            <td><div class="lvl">
+              <label><input type="radio" name="lv1" id="p1_l1a" value="рептильный"><span class="mini">рептильный</span></label>
+              <label><input type="radio" name="lv1" id="p1_l1b" value="лимбический"><span class="mini">лимбический</span></label>
+              <label><input type="radio" name="lv1" id="p1_l1c" value="неокортекс"><span class="mini">неокортекс</span></label>
+            </div></td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td><input type="text" id="p1_d2" placeholder="какое решение"></td>
+            <td><div class="lvl">
+              <label><input type="radio" name="lv2" id="p1_l2a" value="рептильный"><span class="mini">рептильный</span></label>
+              <label><input type="radio" name="lv2" id="p1_l2b" value="лимбический"><span class="mini">лимбический</span></label>
+              <label><input type="radio" name="lv2" id="p1_l2c" value="неокортекс"><span class="mini">неокортекс</span></label>
+            </div></td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td><input type="text" id="p1_d3" placeholder="какое решение"></td>
+            <td><div class="lvl">
+              <label><input type="radio" name="lv3" id="p1_l3a" value="рептильный"><span class="mini">рептильный</span></label>
+              <label><input type="radio" name="lv3" id="p1_l3b" value="лимбический"><span class="mini">лимбический</span></label>
+              <label><input type="radio" name="lv3" id="p1_l3c" value="неокортекс"><span class="mini">неокортекс</span></label>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+      <label class="f"><span>Мой самый частый уровень</span><input type="text" id="p1_lvl" placeholder="что получилось чаще всего"></label>
+    </div>
+
+    <div class="card">
+      <h3>Практика 1 – три органа чувств</h3>
+      <p class="hint">Три минуты в день: минуту слушать, минуту чувствовать, минуту смотреть в одну точку.</p>
+      <ol class="steps">
+        <li><b>Слушать.</b> Три дальних звука и три ближних. Не интерпретируя – что за звук, неважно.</li>
+        <li><b>Чувствовать.</b> Пройти вниманием по телу снизу вверх: стопы, колени, бёдра, живот, плечи, руки.</li>
+        <li><b>Смотреть.</b> Одна точка. Только смотреть, мысли собирать обратно.</li>
+      </ol>
+
+      <h4>Что изменилось сразу после практики</h4>
+      <label class="check"><input type="checkbox" id="p1_r1" data-group="p1r"><span class="box"></span><span class="txt">Замедлилось внутреннее «мельтешение»</span></label>
+      <label class="check"><input type="checkbox" id="p1_r2" data-group="p1r"><span class="box"></span><span class="txt">Стал(а) лучше слышать – появились звуки, которых до этого не замечал(а)</span></label>
+      <label class="check"><input type="checkbox" id="p1_r3" data-group="p1r"><span class="box"></span><span class="txt">Появились ощущения в теле, которые обычно не замечаю</span></label>
+      <label class="check"><input type="checkbox" id="p1_r4" data-group="p1r"><span class="box"></span><span class="txt">Глаза как будто раскрылись, картинка стала чётче</span></label>
+      <label class="check"><input type="checkbox" id="p1_r5" data-group="p1r"><span class="box"></span><span class="txt">Мысли о задаче стали спокойнее</span></label>
+      <label class="check"><input type="checkbox" id="p1_r6" data-group="p1r"><span class="box"></span><span class="txt">Пока ничего не изменилось – это тоже нормально, навык тренируется</span></label>
+
+      <p class="track-label" style="margin-top:20px">Трекер практики, 7 дней</p>
+      <div class="track" data-track="p1_track" data-days="7"></div>
+
+      <label class="f"><span>Моё отложенное решение после практики выглядит</span><textarea id="p1_after" placeholder="не «что я решил», а как оно выглядит сейчас"></textarea></label>
+    </div>
+
+    <div class="card">
+      <h3>Два моих решения</h3>
+      <p class="hint">Интуиция уводит от боли. Нейроинтуиция держит задачу. По одному своему решению каждого типа.</p>
+      <label class="f"><span>Решение, которое я принял(а), чтобы стало полегче и отпустило. К чему это привело</span><textarea id="p1_esc"></textarea></label>
+      <label class="f"><span>Решение, которое я принял(а), потому что шёл(шла) к задаче, хотя было тяжело. К чему это привело</span><textarea id="p1_go"></textarea></label>
+    </div>
+
+    <div class="promo">
+      <b>На курсе «НИИ Практик»</b>
+      <p>Двадцать пять когнитивных ловушек, и только на них уходит две недели. К каждой своё задание – вы находите её у себя, а не читаете список.</p>
+    </div>
+  </section>
+
+  <!-- ================= СТРАНИЦА 2 ================= -->
+  <section class="page" data-page="2">
+    <div class="page-head">
+      <div class="kicker">Урок 2</div>
+      <h2>Нейробиология успеха</h2>
+      <p class="page-note">Доминанта, утвердительная речь и переписанные решения – из «я хочу» в «я выбираю».</p>
+    </div>
+
+    <div class="card accent">
+      <h3>Моя доминанта</h3>
+      <p class="hint">Доминанта – то, подо что перестраивается вся нервная система. Не список задач, а одна.</p>
+      <label class="f"><span>Задача, которую я держу</span><input type="text" id="p2_task" placeholder="одна, самая главная"></label>
+
+      <h4>Проверяем, доминанта ли это</h4>
+      <label class="check"><input type="checkbox" id="p2_d1" data-group="p2d"><span class="box"></span><span class="txt">Я возвращаюсь к ней сам(а), без напоминаний</span></label>
+      <label class="check"><input type="checkbox" id="p2_d2" data-group="p2d"><span class="box"></span><span class="txt">Мне интересно про неё узнавать, а не заставляю себя</span></label>
+      <label class="check"><input type="checkbox" id="p2_d3" data-group="p2d"><span class="box"></span><span class="txt">У меня есть навык, на котором она держится, а не только желание</span></label>
+      <label class="check"><input type="checkbox" id="p2_d4" data-group="p2d"><span class="box"></span><span class="txt">Я замечаю в мире то, что к ней относится</span></label>
+      <label class="check"><input type="checkbox" id="p2_d5" data-group="p2d"><span class="box"></span><span class="txt">Я готов(а) идти к ней и тогда, когда первый азарт прошёл</span></label>
+      <div class="verdict">
+        <b>Отмечено пунктов</b>
+        <span id="v_dom">0 из 5</span>
+        <em id="v_dom_note">Меньше трёх – скорее всего, это пока не доминанта, а пункт из списка. Это не приговор, это диагностика.</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Из «я хочу» в «я выбираю» и «я делаю»</h3>
+      <p class="hint">Три-пять решений, которые сейчас для вас самые важные. Формулировка конкретная: когда, где, сколько.</p>
+      <table class="tbl">
+        <thead><tr><th></th><th>было: «я хочу…»</th><th>стало: «я выбираю…» / «я делаю…»</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><input type="text" id="p2_w1"></td><td><input type="text" id="p2_c1"></td></tr>
+          <tr><td class="num">2</td><td><input type="text" id="p2_w2"></td><td><input type="text" id="p2_c2"></td></tr>
+          <tr><td class="num">3</td><td><input type="text" id="p2_w3"></td><td><input type="text" id="p2_c3"></td></tr>
+          <tr><td class="num">4</td><td><input type="text" id="p2_w4"></td><td><input type="text" id="p2_c4"></td></tr>
+          <tr><td class="num">5</td><td><input type="text" id="p2_w5"></td><td><input type="text" id="p2_c5"></td></tr>
+        </tbody>
+      </table>
+
+      <h4>Произнесите вслух и отследите тело</h4>
+      <label class="check"><input type="checkbox" id="p2_v1"><span class="box"></span><span class="txt">Звучит спокойно и устойчиво – формулировка готова</span></label>
+      <label class="check"><input type="checkbox" id="p2_v2"><span class="box"></span><span class="txt">Внутри что-то сжимается – значит, ещё не звучит убедительно, дорабатываю</span></label>
+
+      <label class="f"><span>Одно маленькое действие по этому решению, которое я сделаю сегодня</span><input type="text" id="p2_act" placeholder="не «начну бегать», а «выберу маршрут» или «куплю кроссовки»"></label>
+    </div>
+
+    <div class="card blue">
+      <h3>Мои предательские сомнения</h3>
+      <p class="hint">Что я на самом деле говорю вслух о своей задаче – и как то же самое звучало бы утвердительно.</p>
+      <table class="tbl">
+        <thead><tr><th></th><th>фраза, которую я произношу</th><th>как это звучит утвердительно</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><input type="text" id="p2_s1" placeholder="«ну, посмотрим»"></td><td><input type="text" id="p2_u1"></td></tr>
+          <tr><td class="num">2</td><td><input type="text" id="p2_s2" placeholder="«если получится»"></td><td><input type="text" id="p2_u2"></td></tr>
+          <tr><td class="num">3</td><td><input type="text" id="p2_s3" placeholder="«я, конечно, не эксперт, но»"></td><td><input type="text" id="p2_u3"></td></tr>
+        </tbody>
+      </table>
+
+      <h4>Откуда чаще приходит сомнение</h4>
+      <label class="check"><input type="checkbox" id="p2_f1"><span class="box"></span><span class="txt">Я сам(а) проговариваю его вслух</span></label>
+      <label class="check"><input type="checkbox" id="p2_f2"><span class="box"></span><span class="txt">Близкие и друзья</span></label>
+      <label class="check"><input type="checkbox" id="p2_f3"><span class="box"></span><span class="txt">Коллеги или партнёры</span></label>
+      <label class="check"><input type="checkbox" id="p2_f4"><span class="box"></span><span class="txt">Лента и чужие мнения в интернете</span></label>
+    </div>
+
+    <div class="card">
+      <h3>Практика 2 – утвердительная речь</h3>
+      <p class="hint">Порядок: сначала три органа чувств из первого урока, сразу после – вслух новые формулировки.</p>
+      <p class="track-label">Трекер практики, 7 дней</p>
+      <div class="track" data-track="p2_track" data-days="7"></div>
+      <label class="f"><span>Одна моя пара «до»</span><input type="text" id="p2_before"></label>
+      <label class="f"><span>и «после»</span><input type="text" id="p2_afterp"></label>
+    </div>
+
+    <div class="promo">
+      <b>На курсе «НИИ Практик»</b>
+      <p>Решение – это всегда задача внутри цели. Под саму цель есть отдельный шаблон, мы называем его картой цели, и две недели работы: лекция и практика.</p>
+    </div>
+  </section>
+
+  <!-- ================= СТРАНИЦА 3 ================= -->
+  <section class="page" data-page="3">
+    <div class="page-head">
+      <div class="kicker">Урок 3</div>
+      <h2>Ритм действий</h2>
+      <p class="page-note">Куда вы уходите вместо действия – и как вернуть себя в движение за одну минуту.</p>
+    </div>
+
+    <div class="card">
+      <h3>Куда я ухожу вместо действия</h3>
+      <p class="hint">Четыре фазы ухода. Отметьте те, в которых бывали – не те, которые правильнее отметить.</p>
+      <label class="check"><input type="checkbox" id="p3_f1" data-group="p3f"><span class="box"></span><span class="txt"><b>Эмоции и качели</b> – самокопание, поиск причины в себе, разбор «почему я такой»</span></label>
+      <label class="check"><input type="checkbox" id="p3_f2" data-group="p3f"><span class="box"></span><span class="txt"><b>Ритуалы и приметы</b> – объяснения через знаки, «не тот день»</span></label>
+      <label class="check"><input type="checkbox" id="p3_f3" data-group="p3f"><span class="box"></span><span class="txt"><b>Ожидание от высших сил</b> – представляю, как всё сложится, вместо шага</span></label>
+      <label class="check"><input type="checkbox" id="p3_f4" data-group="p3f"><span class="box"></span><span class="txt"><b>Бесконечная подготовка</b> – семь раз отмерить, ещё один курс, ещё одно видео</span></label>
+      <label class="f"><span>Как далеко я обычно ухожу</span><input type="text" id="p3_far"></label>
+    </div>
+
+    <div class="card blue">
+      <h3>Прокачка аватара</h3>
+      <p class="hint">Аватар – это когда в голове мы становимся лучше и сильнее, а тело живёт по-старому.</p>
+      <label class="check"><input type="checkbox" id="p3_a1"><span class="box"></span><span class="txt">Прохожу обучения по теме, где уже знаю достаточно</span></label>
+      <label class="check"><input type="checkbox" id="p3_a2"><span class="box"></span><span class="txt">Составляю планы и таблицы, которые потом не использую</span></label>
+      <label class="check"><input type="checkbox" id="p3_a3"><span class="box"></span><span class="txt">Читаю и смотрю про свою тему, но не применяю</span></label>
+      <label class="check"><input type="checkbox" id="p3_a4"><span class="box"></span><span class="txt">Мысленно веду разговоры, которых не было</span></label>
+      <label class="check"><input type="checkbox" id="p3_a5"><span class="box"></span><span class="txt">Обсуждаю замысел с теми, кто ничего не решает</span></label>
+      <label class="check"><input type="checkbox" id="p3_a6"><span class="box"></span><span class="txt">Жду «правильного состояния», чтобы начать</span></label>
+
+      <label class="f"><span>Один реальный шаг, который я сделаю сегодня</span><input type="text" id="p3_step" placeholder="именно один, не список"></label>
+      <label class="f"><span>Сегодня до</span><input type="text" id="p3_time" placeholder="19:00" style="max-width:160px"></label>
+      <p class="hint" style="margin-top:14px">Без времени это не шаг, а намерение.</p>
+    </div>
+
+    <div class="card accent">
+      <h3>Практика 3 – стаканчик</h3>
+      <p class="hint">Стакан воды на макушку. Минуту стоя или медленно шагая толкаем макушкой вверх. В это время утвердительно думаем о своей задаче – можно вслух.</p>
+
+      <h4>После практики</h4>
+      <label class="check"><input type="checkbox" id="p3_r1"><span class="box"></span><span class="txt">Тело включилось – почувствовал(а) тонус</span></label>
+      <label class="check"><input type="checkbox" id="p3_r2"><span class="box"></span><span class="txt">Стало понятно, что до этого я «двигался(лась)» только в голове</span></label>
+      <label class="check"><input type="checkbox" id="p3_r3"><span class="box"></span><span class="txt">Задача зазвучала иначе, когда её держало тело</span></label>
+      <label class="check"><input type="checkbox" id="p3_r4"><span class="box"></span><span class="txt">Вода показала, что я не держу тонус, – и это полезно знать</span></label>
+
+      <p class="track-label" style="margin-top:20px">Трекер практики, 7 дней</p>
+      <div class="track" data-track="p3_track" data-days="7"></div>
+
+      <label class="f"><span>Какая задача была у меня в фокусе, пока я толкал(а) стакан</span><input type="text" id="p3_q1"></label>
+      <label class="f"><span>Что произошло с внутренним диалогом – удалось ли поймать тишину в голове</span><input type="text" id="p3_q2"></label>
+      <label class="f"><span>Какое решение или импульс по задаче пришли в последнюю минуту</span><textarea id="p3_q3"></textarea></label>
+    </div>
+
+    <div class="card">
+      <h3>Полный комплекс</h3>
+      <p class="hint">Минуту слушать · минуту чувствовать · минуту смотреть · минуту стаканчик с утвердительной речью.</p>
+      <label class="check"><input type="checkbox" id="p3_full"><span class="box"></span><span class="txt">Собрал(а) комплекс целиком – все четыре минуты подряд</span></label>
+    </div>
+
+    <div class="promo">
+      <b>На курсе «НИИ Практик»</b>
+      <p>Практическое мышление тренируется на формуле нейроинтуитивного интеллекта. Своё реальное решение вы прогоняете через шаблон, который так и называется – решение по формуле.</p>
+    </div>
+  </section>
+
+  <!-- ================= СТРАНИЦА 4 ================= -->
+  <section class="page" data-page="4">
+    <div class="page-head">
+      <div class="kicker">Урок 4</div>
+      <h2>Формула</h2>
+      <p class="page-note">Три фактора нейроинтуитивного интеллекта, ваш слабый фактор и ежедневный комплекс на четыре минуты.</p>
+    </div>
+
+    <div class="card">
+      <h3>Три фактора – как у меня сейчас</h3>
+      <p class="hint">Оцените каждый фактор от 1 до 10 по своим ощущениям. Правильных ответов нет.</p>
+
+      <div class="score" data-score="f1">
+        <div class="score-top"><b>Физическая адаптивность</b><i>–</i></div>
+        <p>Есть ли у меня энергия в избытке, высыпаюсь ли, не мешает ли тело думать</p>
+        <div class="dots"></div>
+      </div>
+      <div class="score" data-score="f2">
+        <div class="score-top"><b>Нейропсихическая устойчивость</b><i>–</i></div>
+        <p>Удерживаю ли я курс, когда появился более интересный проект или пришла неприятная новость</p>
+        <div class="dots"></div>
+      </div>
+      <div class="score" data-score="f3">
+        <div class="score-top"><b>Зеркальное лидерство</b><i>–</i></div>
+        <p>Остаюсь ли я в своей задаче после общения с тревожными людьми</p>
+        <div class="dots"></div>
+      </div>
+
+      <div class="verdict">
+        <b>Что западает сильнее всего</b>
+        <span id="v_weak">пока не определено</span>
+        <em id="v_weak_note">Поставьте три оценки – самый слабый фактор подсветится сам.</em>
+      </div>
+
+      <label class="f"><span>Результат теста, если он уже пройден</span><input type="text" id="p4_test"></label>
+    </div>
+
+    <div class="card blue">
+      <h3>Как это проявляется</h3>
+      <p class="hint">Отметьте то, что узнаёте у себя чаще всего.</p>
+      <label class="check"><input type="checkbox" id="p4_w1"><span class="box"></span><span class="txt">К вечеру нет сил ни на что, кроме ленты и еды</span></label>
+      <label class="check"><input type="checkbox" id="p4_w2"><span class="box"></span><span class="txt">Начинаю много и бросаю на середине</span></label>
+      <label class="check"><input type="checkbox" id="p4_w3"><span class="box"></span><span class="txt">После разговора с тревожным человеком сомневаюсь в своём решении</span></label>
+      <label class="check"><input type="checkbox" id="p4_w4"><span class="box"></span><span class="txt">Хватаюсь за новое, потому что оно интереснее старого</span></label>
+      <label class="check"><input type="checkbox" id="p4_w5"><span class="box"></span><span class="txt">Долго восстанавливаюсь после любого напряжения</span></label>
+      <label class="check"><input type="checkbox" id="p4_w6"><span class="box"></span><span class="txt">Легко перенимаю чужое настроение и считаю его своим</span></label>
+      <label class="f"><span>Один точечный шаг именно по этому фактору</span><input type="text" id="p4_step" placeholder="не десять, один"></label>
+    </div>
+
+    <div class="card">
+      <h3>Моя скорость</h3>
+      <p class="hint">Скорость нервного узла у каждого своя, её не «прокачивают» – с ней живут.</p>
+      <label class="check"><input type="checkbox" id="p4_sp1"><span class="box"></span><span class="txt">Я быстрый: решаю сразу, потом бывает суета</span></label>
+      <label class="check"><input type="checkbox" id="p4_sp2"><span class="box"></span><span class="txt">Я медленный: думаю дольше, зато шаги устойчивее</span></label>
+      <label class="check"><input type="checkbox" id="p4_sp3"><span class="box"></span><span class="txt">По-разному, зависит от области</span></label>
+      <label class="f"><span>Что для меня значит идти в своём ритме</span><textarea id="p4_rhythm"></textarea></label>
+    </div>
+
+    <div class="card accent">
+      <h3>Гигиена принятия решений</h3>
+      <p class="hint">Ежедневный комплекс, четыре минуты.</p>
+      <ol class="steps">
+        <li>Минуту слушать – три дальних звука, три ближних, не интерпретируя</li>
+        <li>Минуту чувствовать – пройти вниманием по телу снизу вверх</li>
+        <li>Минуту смотреть в одну точку – только смотреть, без мыслей</li>
+        <li>Минуту стаканчик – тонус тела и утвердительная речь о своей задаче</li>
+      </ol>
+
+      <h4>К чему я привяжу этот ритуал</h4>
+      <label class="check"><input type="checkbox" id="p4_h1"><span class="box"></span><span class="txt">Чистка зубов утром</span></label>
+      <label class="check"><input type="checkbox" id="p4_h2"><span class="box"></span><span class="txt">Стакан воды перед завтраком</span></label>
+      <label class="check"><input type="checkbox" id="p4_h3"><span class="box"></span><span class="txt">Дверца холодильника – повешу памятку</span></label>
+      <label class="f"><span>Своё</span><input type="text" id="p4_own"></label>
+      <p class="hint" style="margin-top:14px">Один пункт, не три – иначе не приживётся.</p>
+
+      <p class="track-label" style="margin-top:20px">Трекер комплекса, 21 день</p>
+      <div class="track" data-track="p4_track" data-days="21"></div>
+    </div>
+
+    <div class="promo">
+      <b>На курсе «НИИ Практик»</b>
+      <p>Каждый компонент формулы – отдельный модуль. Курс идёт одиннадцать недель: пять модулей по две недели, к каждому домашнее задание с разбором живого человека, а в конце – выпускной в университете.</p>
+    </div>
+  </section>
+
+  <!-- ================= СТРАНИЦА 5 ================= -->
+  <section class="page" data-page="5">
+    <div class="page-head">
+      <div class="kicker">Итог</div>
+      <h2>Было и стало</h2>
+      <p class="page-note">Самая важная страница дневника. Здесь видно разницу между собой на входе и собой на выходе.</p>
+    </div>
+
+    <div class="card accent">
+      <h3>Решение, с которым вы пришли</h3>
+      <div class="mirror">
+        <b>Записано перед первым уроком</b>
+        <div id="m_decision" class="empty">Вы ещё не заполнили решение на странице «Перед стартом».</div>
+      </div>
+      <div class="mirror" style="margin-top:12px">
+        <b>Сколько времени откладывалось</b>
+        <div id="m_howlong" class="empty">–</div>
+      </div>
+      <label class="f"><span>Что с ним сейчас</span><textarea id="p5_now" placeholder="одна строка – что изменилось за четыре урока"></textarea></label>
+    </div>
+
+    <div class="card">
+      <h3>Что изменилось за четыре урока</h3>
+      <label class="check"><input type="checkbox" id="p5_c1" data-group="p5c"><span class="box"></span><span class="txt">Я знаю свой тип реакции на неопределённость</span></label>
+      <label class="check"><input type="checkbox" id="p5_c2" data-group="p5c"><span class="box"></span><span class="txt">Я вижу, из какого уровня мозга принимаю решения</span></label>
+      <label class="check"><input type="checkbox" id="p5_c3" data-group="p5c"><span class="box"></span><span class="txt">У меня сформулирована доминанта</span></label>
+      <label class="check"><input type="checkbox" id="p5_c4" data-group="p5c"><span class="box"></span><span class="txt">Я переписал(а) свою речь о задаче на утвердительную</span></label>
+      <label class="check"><input type="checkbox" id="p5_c5" data-group="p5c"><span class="box"></span><span class="txt">Я сделал(а) реальный шаг, а не подготовку к нему</span></label>
+      <label class="check"><input type="checkbox" id="p5_c6" data-group="p5c"><span class="box"></span><span class="txt">Я знаю, какой фактор формулы у меня западает</span></label>
+      <label class="check"><input type="checkbox" id="p5_c7" data-group="p5c"><span class="box"></span><span class="txt">У меня есть ежедневный комплекс на 4 минуты</span></label>
+      <div class="chips"><span class="chip">Отмечено<b id="c_p5c">0 из 7</b></span></div>
+    </div>
+
+    <div class="card blue">
+      <h3>Три последние строки</h3>
+      <label class="f"><span>Моё главное изменение за эти четыре урока, одной фразой</span><textarea id="p5_main"></textarea></label>
+      <label class="f"><span>Решение, которое я готов(а) принять прямо сейчас</span><textarea id="p5_ready"></textarea></label>
+      <label class="f"><span>Мой следующий шаг после интенсива</span><textarea id="p5_next"></textarea></label>
+    </div>
+
+    <div class="promo">
+      <b>Дальше</b>
+      <p>Формула у вас теперь есть. «НИИ Практик» – это про то, как пользоваться ею каждый день: пять модулей, одиннадцать недель, работа со своими показателями и разбор ваших решений.</p>
+    </div>
+
+    <div class="card">
+      <h3>Заберите свои записи</h3>
+      <p class="hint">Дневник хранится только в этом браузере. Сохраните копию себе – файлом или на печать.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px">
+        <button class="btn primary" data-act="save">Скачать мои записи</button>
+        <button class="btn" data-act="print">Распечатать</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="sign">
+    <b>Международный нейроуниверситет имени Д. Р. Ягудина</b><br>
+    Интенсив «Нейроинтуитивный интеллект – формула точных решений». Ведут Изабелла Найманова и Дмитрий Рустамович Ягудин.
+  </footer>
+</div>
+
+<div class="bar-fixed">
+  <div class="bar-in">
+    <button class="btn primary" data-act="save">Скачать записи</button>
+    <button class="btn" data-act="print">Печать</button>
+    <span class="spacer"></span>
+    <div class="pager">
+      <button class="btn" data-act="prev">Назад</button>
+      <button class="btn" data-act="next">Дальше</button>
+    </div>
+    <button class="btn ghost" data-act="clear">Очистить</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+  var KEY = 'nii-dnevnik-v1';
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ store = {}; }
+
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e){}
+  }
+  function toast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('on');
+    clearTimeout(toast._t); toast._t = setTimeout(function(){ t.classList.remove('on'); }, 2200);
+  }
+
+  /* ---------- trackers ---------- */
+  document.querySelectorAll('[data-track]').forEach(function(box){
+    var name = box.getAttribute('data-track');
+    var days = parseInt(box.getAttribute('data-days'), 10);
+    var val = store[name] || [];
+    for (var i = 1; i <= days; i++){
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = i; b.setAttribute('data-day', i);
+      if (val.indexOf(i) !== -1) b.classList.add('on');
+      box.appendChild(b);
+    }
+    box.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if (!b) return;
+      var day = parseInt(b.getAttribute('data-day'), 10);
+      var arr = store[name] || [];
+      var at = arr.indexOf(day);
+      if (at === -1){ arr.push(day); b.classList.add('on'); }
+      else { arr.splice(at, 1); b.classList.remove('on'); }
+      store[name] = arr; save(); refresh();
+    });
+  });
+
+  /* ---------- scores ---------- */
+  document.querySelectorAll('[data-score]').forEach(function(box){
+    var name = box.getAttribute('data-score');
+    var dots = box.querySelector('.dots');
+    var out = box.querySelector('.score-top i');
+    for (var i = 1; i <= 10; i++){
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = i; b.setAttribute('data-v', i);
+      dots.appendChild(b);
+    }
+    function paint(){
+      var v = store[name] || 0;
+      out.textContent = v ? v : '–';
+      dots.querySelectorAll('button').forEach(function(b){
+        b.classList.toggle('on', parseInt(b.getAttribute('data-v'),10) <= v);
+      });
+    }
+    dots.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if (!b) return;
+      var v = parseInt(b.getAttribute('data-v'), 10);
+      store[name] = (store[name] === v) ? 0 : v;
+      save(); paint(); refresh();
+    });
+    paint();
+  });
+
+  /* ---------- inputs ---------- */
+  var fields = document.querySelectorAll('input[type=text], textarea, input[type=checkbox], input[type=radio]');
+  fields.forEach(function(el){
+    var key = el.id || el.name;
+    if (!key) return;
+    if (el.type === 'checkbox'){
+      if (store[el.id]) el.checked = true;
+      el.addEventListener('change', function(){ store[el.id] = el.checked; save(); refresh(); });
+    } else if (el.type === 'radio'){
+      if (store[el.name] === el.id) el.checked = true;
+      el.addEventListener('change', function(){ store[el.name] = el.id; save(); refresh(); });
+    } else {
+      if (store[el.id]) el.value = store[el.id];
+      el.addEventListener('input', function(){
+        store[el.id] = el.value; save();
+        if (el.id === 'p0_decision' || el.id === 'p0_howlong') mirror();
+        clearTimeout(el._t); el._t = setTimeout(refresh, 320);
+      });
+    }
+  });
+
+  /* ---------- live counters ---------- */
+  function countGroup(sel){
+    var n = 0;
+    document.querySelectorAll(sel).forEach(function(el){ if (el.checked) n++; });
+    return n;
+  }
+  var TYPES = { gk:'Гиперконтроль', imp:'Импульсивность', stup:'Ступор' };
+  var TYPE_NOTE = {
+    gk:'Вы дольше готовитесь, чем действуете. Ваш риск – перепутать сбор информации с движением.',
+    imp:'Вы решаете быстро и на эмоции. Ваш риск – отменять собственные решения на следующий день.',
+    stup:'Вы замираете, когда напряжение растёт. Ваш риск – ждать, пока решение примут за вас.'
+  };
+  var FACTORS = { f1:'Физическая адаптивность', f2:'Нейропсихическая устойчивость', f3:'Зеркальное лидерство' };
+  var FACTOR_NOTE = {
+    f1:'Начните с тела: сон, восстановление, энергия. Без этого остальное не держится.',
+    f2:'Ваша задача – удерживать курс, когда появляется что-то поинтереснее или прилетает плохая новость.',
+    f3:'Ваша задача – оставаться в своём решении после общения с тревожными людьми.'
+  };
+
+  function mirror(){
+    var d = (store.p0_decision || '').trim();
+    var h = (store.p0_howlong || '').trim();
+    var md = document.getElementById('m_decision');
+    var mh = document.getElementById('m_howlong');
+    if (d){ md.innerHTML = '<q></q>'; md.querySelector('q').textContent = d; md.classList.remove('empty'); }
+    else { md.textContent = 'Вы ещё не заполнили решение на странице «Перед стартом».'; md.classList.add('empty'); }
+    if (h){ mh.textContent = h; mh.classList.remove('empty'); }
+    else { mh.textContent = '–'; mh.classList.add('empty'); }
+  }
+
+  function refresh(){
+    /* type */
+    var c = { gk: countGroup('[data-type=gk]'), imp: countGroup('[data-type=imp]'), stup: countGroup('[data-type=stup]') };
+    document.getElementById('c_gk').textContent = c.gk;
+    document.getElementById('c_imp').textContent = c.imp;
+    document.getElementById('c_stup').textContent = c.stup;
+    var total = c.gk + c.imp + c.stup;
+    var vt = document.getElementById('v_type'), vn = document.getElementById('v_type_note');
+    if (!total){ vt.textContent = 'пока не определён'; vn.textContent = 'Отметьте пункты выше – тип посчитается сам.'; }
+    else {
+      var max = Math.max(c.gk, c.imp, c.stup);
+      var lead = Object.keys(c).filter(function(k){ return c[k] === max; });
+      if (lead.length > 1){
+        vt.textContent = lead.map(function(k){ return TYPES[k]; }).join(' и ');
+        vn.textContent = 'У вас поровну. Это тоже ответ: реакция зависит от области жизни – посмотрите, где какая включается.';
+      } else {
+        vt.textContent = TYPES[lead[0]];
+        vn.textContent = TYPE_NOTE[lead[0]];
+      }
+    }
+
+    /* доминанта */
+    var dom = countGroup('[data-group=p2d]');
+    document.getElementById('v_dom').textContent = dom + ' из 5';
+    document.getElementById('v_dom_note').textContent = dom >= 3
+      ? 'Похоже на настоящую доминанту: нервная система уже работает на эту задачу.'
+      : 'Меньше трёх – скорее всего, это пока не доминанта, а пункт из списка. Это не приговор, это диагностика.';
+
+    /* слабый фактор */
+    var vals = { f1: store.f1 || 0, f2: store.f2 || 0, f3: store.f3 || 0 };
+    var vw = document.getElementById('v_weak'), vwn = document.getElementById('v_weak_note');
+    if (!vals.f1 || !vals.f2 || !vals.f3){
+      vw.textContent = 'пока не определено';
+      vwn.textContent = 'Поставьте три оценки – самый слабый фактор подсветится сам.';
+    } else {
+      var min = Math.min(vals.f1, vals.f2, vals.f3);
+      var weak = Object.keys(vals).filter(function(k){ return vals[k] === min; });
+      vw.textContent = weak.map(function(k){ return FACTORS[k]; }).join(' и ');
+      vwn.textContent = weak.length > 1
+        ? 'Два фактора просели одинаково. Возьмите тот, который проще поднять телом, – обычно это первый.'
+        : FACTOR_NOTE[weak[0]] + ' Оценка ' + min + ' из 10.';
+    }
+
+    /* простые счётчики */
+    document.getElementById('c_p0a').textContent = countGroup('[data-group=p0a]') + ' из 6';
+    document.getElementById('c_p5c').textContent = countGroup('[data-group=p5c]') + ' из 7';
+
+    /* прогресс */
+    var filled = 0, all = 0;
+    document.querySelectorAll('input[type=text], textarea').forEach(function(el){
+      all++; if ((el.value || '').trim()) filled++;
+    });
+    document.querySelectorAll('input[type=checkbox]').forEach(function(el){ all++; if (el.checked) filled++; });
+    ['f1','f2','f3'].forEach(function(k){ all++; if (store[k]) filled++; });
+    var pct = all ? Math.round(filled / all * 100) : 0;
+    document.getElementById('pct').textContent = pct + '%';
+    document.getElementById('barFill').style.width = pct + '%';
+
+    /* отметки на табах */
+    document.querySelectorAll('.tab').forEach(function(tab){
+      var p = tab.getAttribute('data-go');
+      var sec = document.querySelector('.page[data-page="' + p + '"]');
+      var any = false;
+      sec.querySelectorAll('input[type=text], textarea').forEach(function(el){ if ((el.value||'').trim()) any = true; });
+      sec.querySelectorAll('input[type=checkbox]').forEach(function(el){ if (el.checked) any = true; });
+      if (p === '4' && (store.f1 || store.f2 || store.f3)) any = true;
+      tab.classList.toggle('done', any);
+    });
+  }
+
+  /* ---------- navigation ---------- */
+  var cur = 0;
+  function go(n){
+    var pages = document.querySelectorAll('.page');
+    if (n < 0) n = 0;
+    if (n > pages.length - 1) n = pages.length - 1;
+    cur = n;
+    pages.forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-page') === String(n)); });
+    document.querySelectorAll('.tab').forEach(function(t){
+      t.setAttribute('aria-selected', t.getAttribute('data-go') === String(n) ? 'true' : 'false');
+    });
+    if (n === 5) mirror();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    try { localStorage.setItem(KEY + '-page', String(n)); } catch(e){}
+  }
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click', function(){ go(parseInt(t.getAttribute('data-go'), 10)); });
+  });
+
+  /* ---------- actions ---------- */
+  function buildText(){
+    var out = [];
+    out.push('ДНЕВНИК ПРИНЯТИЯ РЕШЕНИЙ');
+    out.push('Интенсив «Нейроинтуитивный интеллект – формула точных решений»');
+    out.push('Международный нейроуниверситет имени Д. Р. Ягудина');
+    out.push('');
+    document.querySelectorAll('.page').forEach(function(sec){
+      var h = sec.querySelector('h2');
+      out.push('');
+      out.push('══════════════════════════════════════');
+      out.push((sec.querySelector('.kicker').textContent + ' · ' + h.textContent).toUpperCase());
+      out.push('══════════════════════════════════════');
+      sec.querySelectorAll('.card, .promo').forEach(function(card){
+        var t = card.querySelector('h3');
+        var lines = [];
+        card.querySelectorAll('input[type=checkbox]').forEach(function(el){
+          var txt = el.parentElement.querySelector('.txt');
+          if (txt) lines.push('  [' + (el.checked ? 'x' : ' ') + '] ' + txt.textContent.trim());
+        });
+        card.querySelectorAll('label.f').forEach(function(l){
+          var f = l.querySelector('input, textarea');
+          if (f && (f.value || '').trim()) lines.push('  ' + l.querySelector('span').textContent.trim() + ': ' + f.value.trim());
+        });
+        card.querySelectorAll('.tbl tr').forEach(function(tr){
+          var ins = tr.querySelectorAll('input[type=text]');
+          if (!ins.length) return;
+          var vals = [];
+          ins.forEach(function(i){ if ((i.value||'').trim()) vals.push(i.value.trim()); });
+          var rad = tr.querySelector('input[type=radio]:checked');
+          if (rad) vals.push('→ ' + rad.value);
+          if (vals.length) lines.push('  · ' + vals.join('  |  '));
+        });
+        card.querySelectorAll('[data-score]').forEach(function(s){
+          var nm = s.getAttribute('data-score');
+          lines.push('  ' + s.querySelector('b').textContent + ': ' + (store[nm] || '–') + ' из 10');
+        });
+        card.querySelectorAll('[data-track]').forEach(function(tr){
+          var arr = store[tr.getAttribute('data-track')] || [];
+          if (arr.length) lines.push('  Отмечено дней практики: ' + arr.length + ' (' + arr.sort(function(a,b){return a-b;}).join(', ') + ')');
+        });
+        var v = card.querySelector('.verdict');
+        if (v) lines.push('  ' + v.querySelector('b').textContent + ': ' + v.querySelector('span').textContent);
+        if (lines.length){
+          out.push('');
+          if (t) out.push('– ' + t.textContent + ' –');
+          out = out.concat(lines);
+        }
+      });
+    });
+    out.push('');
+    out.push('');
+    out.push('Продолжение – курс «Нейроинтуитивный интеллект. Практик».');
+    return out.join('\n');
+  }
+
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-act]'); if (!b) return;
+    var act = b.getAttribute('data-act');
+    if (act === 'next') go(cur + 1);
+    if (act === 'prev') go(cur - 1);
+    if (act === 'print') window.print();
+    if (act === 'save'){
+      var blob = new Blob([buildText()], { type: 'text/plain;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Дневник принятия решений.txt';
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+      toast('Файл скачан');
+    }
+    if (act === 'clear'){
+      if (!confirm('Стереть все записи в дневнике? Отменить это будет нельзя.')) return;
+      store = {}; save();
+      try { localStorage.removeItem(KEY + '-page'); } catch(err){}
+      location.reload();
+    }
+  });
+
+  /* ---------- init ---------- */
+  var startPage = 0;
+  try { startPage = parseInt(localStorage.getItem(KEY + '-page') || '0', 10) || 0; } catch(e){}
+  mirror(); refresh(); go(startPage);
+
+  var note = document.getElementById('saveNote');
+  var hasData = Object.keys(store).length > 0;
+  if (hasData) note.textContent = 'Ваши записи восстановлены – можно продолжать';
+})();
+</script>
+</body>
+</html>
